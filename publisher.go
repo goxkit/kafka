@@ -79,7 +79,7 @@ func NewPublisher(configs *configs.Configs) messaging.Publisher {
 //
 // Returns:
 // - An error if the message could not be sent or if the topic is empty.
-func (p *kafkaPublisher) Publish(ctx context.Context, to, from, key *string, msg any, options ...*messaging.PubOption) error {
+func (p *kafkaPublisher) Publish(ctx context.Context, to, from, key *string, msg any, options ...*messaging.Option) error {
 	if to == nil || *to == "" {
 		return fmt.Errorf("destination topic cannot be empty")
 	}
@@ -121,7 +121,7 @@ func (p *kafkaPublisher) Publish(ctx context.Context, to, from, key *string, msg
 //
 // Returns:
 // - An error if the message could not be sent within the deadline or if the topic is empty.
-func (p *kafkaPublisher) PublishDeadline(ctx context.Context, to, from, key *string, msg any, options ...*messaging.PubOption) error {
+func (p *kafkaPublisher) PublishDeadline(ctx context.Context, to, from, key *string, msg any, options ...*messaging.Option) error {
 	ctx, cancel := context.WithTimeout(ctx, time.Second*10) // 10-second timeout
 	defer cancel()
 
