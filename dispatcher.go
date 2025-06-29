@@ -82,12 +82,11 @@ func NewDispatcher(configs *configs.Configs) *kafkaDispatcher {
 //     typically a string or a type reference. It's used to route messages to the appropriate handler.
 //   - handler: The handler function to process the message. This function will be called
 //     when a message of the specified type is received from the specified source.
-//   - options: Additional configuration options for the dispatcher (not currently used in this implementation).
 //
 // Returns:
 //   - An error if a handler is already registered for the given message type and source,
 //     otherwise nil.
-func (d *kafkaDispatcher) Register(from string, msgType any, handler messaging.ConsumerHandler, options ...messaging.DispatcherOption) error {
+func (d *kafkaDispatcher) Register(from string, msgType any, handler messaging.ConsumerHandler) error {
 	d.mutex.Lock()
 	defer d.mutex.Unlock()
 
